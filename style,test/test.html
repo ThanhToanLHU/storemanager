@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tab Bar Navigation</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    .tab-bar {
+      width: 100%;
+      height: 50px;
+      background-color: #ccc;
+    }
+
+    .tab {
+      display: inline-block;
+      padding: 10px;
+      text-decoration: none;
+      color: black;
+    }
+
+    .tab:hover {
+      background-color: #eee;
+    }
+
+    .tab.active {
+      background-color: #fff;
+    }
+
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab-bar">
+    <a href="#" class="tab active">Home</a>
+    <a href="about.html" class="tab">About</a>
+    <a href="contact.html" class="tab">Contact</a>
+  </div>
+
+  <div class="content">
+    <h1>Home</h1>
+    <p>This is the home page.</p>
+  </div>
+
+  <script>
+    // Get all tab elements.
+    const tabs = document.querySelectorAll('.tab');
+
+    // Add an event listener to each tab element.
+    tabs.forEach(tab => {
+      tab.addEventListener('click', event => {
+        // Prevent the default link behavior.
+        event.preventDefault();
+
+        // Remove the active class from all tab elements.
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // Add the active class to the current tab element.
+        tab.classList.add('active');
+
+        // Load the content of the corresponding page.
+        const pageUrl = tab.getAttribute('href');
+        const content = document.querySelector('.content');
+        fetch(pageUrl)
+          .then(response => response.text())
+          .then(text => content.innerHTML = text);
+      });
+    });
+  </script>
+</body>
+</html>

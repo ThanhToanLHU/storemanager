@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 0;
+}
+
+.content {
+    width: 100vw;
+    position: relative;
+}
+.add{
+    position: absolute;
+    right: 30px;
+    background-color: #2F356D;
+    border: 5px solid #2F356D;
+    color: white;
+    padding: 5px 5px;
+    text-align: left;
+    text-decoration: none;
+    font-size: 10px;
+    cursor: pointer;
+    width: 100px;
+    display: block;
+}
+.add:hover{
+    background-color: white;
+    color: #2F356D;
+}
+
+.tabtc {
+    background-color: #2F356D;
+    border: 1px solid #2F356D;
+    color: white;
+    padding: 10px 10px;
+    text-align: left;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    width: 180px;
+    display: block;
+}
+
+
+.tabtcBtn{
+    background-color: #2F356D;
+    border: 1px solid #2F356D;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    width: 150px;
+    display: block;
+}
+.tabtcBtn:hover{
+    background-color: white;
+    color: #2F356D;
+}
+/* .tabtc:hover{
+    background-color: white;
+    color: #2F356D;
+}
+.tabds:hover {
+    background-color: white;
+    color: #2F356D;
+} */
+.tabds {
+    position: absolute;
+    bottom: 1vh;
+    background-color: #2F356D;
+    border: 1px solid #2F356D;
+    color: white;
+    padding: 10px 10px;
+    text-align: left;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    width: 180px;
+    display: block;
+
+}
+
+.tabBtn{
+    background-color: #2F356D;
+    border: 1px solid #2F356D;
+    color: white;
+    padding: 10px 10px;
+    text-align: left;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    width: 180px;
+    display: block;
+    margin-top: 25%;
+}
+
+.tabActive{
+    background-color: white;
+    color: #2F356D;
+}
+
+.btn-group .tabBtn:not(:last-child) {
+    border-bottom: none;
+    /* Ngăn hai đường viền */
+}
+
+.btn-group .tabBtn:hover {
+    background-color: white;
+    color: #2F356D;
+}
+
+
+
+#sidebar {
+    background-color: #2F356D;
+    color: white;
+    width: 200px;
+    height: 100vh;
+    padding: 20px;
+}
+
+#search {
+    background-color: #2F356D;
+    padding: 20px;
+    text-align: left;
+}
+input {
+  margin: 0.4rem 0;
+}
+
+#table {
+    width: 100%;
+    border-collapse: collapse;
+    flex: 1;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #2F356D;
+    color: white;
+
+}

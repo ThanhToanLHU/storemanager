@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thêm vật tư</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Styles for the overlay */
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: #fff;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    /* Styles for the popup */
+    #popup {
+      background: #2F356D;
+      padding: 100px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 10);
+      color: #fff;
+    }
+
+    /* Close button styles */
+    #closeBtn {
+      background-color: red;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    h2 {
+      color: #fff;
+      text-align: center;
+    }
+    .center{
+      display: flex;
+      text-align: center;
+      gap: 20px;
+      margin-left: 60px;
+    }
+    .input-item{
+      height: 15px;
+    }
+    .label-group{
+      margin-top: 5px;
+     
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <button id="showPopupBtn">Thêm vật tư</button>
+
+  <!-- Overlay and Popup -->
+  <div id="overlay">
+    <div id="popup">
+      <h2>Thêm vật tư</h2>
+      <div class="center">
+        <div class="label-group">
+          <label for="name">Tên vật tư:</label>
+          <p></p>
+          <label for="name">Mã vật tư:</label>
+          <p></p>
+          <label for="name">Số tồn kho:</label>
+          <p></p>
+          <label for="name">Đơn vị tính:</label>
+          <p></p>
+          <label for="name">Ghi chú:</label>
+        </div>
+        
+        <div class="input-group">
+          <input type="text" id="tvt" class="input-item">
+          <p></p>
+          <input type="text" id="mvt" class="input-item">
+          <p></p>
+          <input type="text" id="stk" class="input-item">
+          <p></p>
+          <input type="text" id="dvt" class="input-item">
+          <p></p>
+  
+          <input type="text" id="gc" class="input-item">
+        </div>
+      </div>
+      <p></p>
+      <button id="closeBtn">Đóng</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Show the popup when the "Show Popup" button is clicked
+      $('#showPopupBtn').on('click', function () {
+        $('#overlay').fadeIn();
+      });
+
+      // Close the popup when the "Close Popup" button is clicked
+      $('#closeBtn').on('click', function () {
+        $('#overlay').fadeOut();
+      });
+    });
+  </script>
+</body>
+
+</html>
