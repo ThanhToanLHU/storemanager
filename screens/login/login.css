@@ -1,5 +1,5 @@
 body{
-    background: url('../images/login.png');
+    background: url('./images/login.png');
     background-size: cover;
     background-position-x: 10vw;
     font-size: 16px;

@@ -45,4 +45,18 @@ async function postData(path, data) {
   }
 }
 
+async function updateItemWithId(path, id, data) {
+  try {
+    const response = await $.ajax({
+      url: baseUrl + path + "id?id=" + id,
+      method: 'PUT',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
 
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}

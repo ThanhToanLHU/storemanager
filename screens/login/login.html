@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA_Compatible" content="IE=edge"> 
+    <meta http-equiv="X-UA_Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./login.css">
     <title>Form login</title>
 </head>
+
 <body>
     <div id="wrapper">
         <form action="" id="Form-login">
@@ -18,18 +20,31 @@
             <div class="form-group">
                 <input type="password" class="form-input" placeholder="Mật khẩu">
             </div>
-            <input type="checkbox" name="check" value="check">  
+            <input type="checkbox" name="check" value="check">
             <label for="myCheckbox">Lưu mật khẩu cho lần đăng nhập sau</label>
-            <input type="submit" value="Đăng nhập" class="form-submit">
+            <input type="submit" id="nutDangNhap" value="Đăng nhập" class="form-submit">
             <h3 class="form-heading2">Bạn chưa có tài khoản?</h3>
             <p>
                 <a href="link_dang_ky.html">Đăng ký</a>
-              </p>
+            </p>
         </form>
-        
+
     </div>
+
     <body>
         <div class="background-image"> </div>
-      </body>
+    </body>
+
+    <script>
+        document.getElementById('Form-login').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+           console.log("dang nhap");
+           
+           window.location.href = "../quanLiVatTu/quanLiVatTu.html"
+        });
+       
+    </script>
 </body>
+
 </html>

@@ -41,7 +41,7 @@ $(document).ready(function () {
   right: 0px
 }
 
-#addProductBtn {
+#addProductBtn, #updateProductBtn, #deleteProductBtn {
   background-color: #07b007;
   color: #fff;
   padding: 10px 20px;
@@ -49,7 +49,17 @@ $(document).ready(function () {
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  margin: 0 auto
+  margin: 0 10px,
+
+}
+
+#updateProductBtn{
+    background-color: #abc00c;
+    margin-right: 10px
+}
+
+#deleteProductBtn{
+    background-color: #c0164a
 }
 
 h2 {
@@ -71,6 +81,10 @@ h2 {
   color: black
 }
 
+input[type=file]{
+    margin-top: 1.6vh
+}
+
 .label-group {
 }
 
@@ -88,6 +102,12 @@ h2 {
     var showPopupBtn = document.createElement('button');
     showPopupBtn.id = 'addProductBtn';
     showPopupBtn.textContent = 'Thêm vật tư';
+    var updatePopupBtn = document.createElement('button');
+    updatePopupBtn.id = 'updateProductBtn';
+    updatePopupBtn.textContent = 'Sửa vật tư';
+    var deletePopupBtn = document.createElement('button');
+    deletePopupBtn.id = 'deleteProductBtn';
+    deletePopupBtn.textContent = 'Xóa vật tư';
 
     // Create overlay element
     var overlay = document.createElement('div');
@@ -99,6 +119,7 @@ h2 {
 
     // Create h2 element
     var h2 = document.createElement('h2');
+    h2.id = "popUpTitle";
     h2.textContent = 'Thêm vật tư';
 
     // Create div.center element
@@ -182,6 +203,8 @@ h2 {
     popup.appendChild(closeButton);
     overlay.appendChild(popup);
     popup.appendChild(showPopupBtn);
+    popup.appendChild(updatePopupBtn);
+    popup.appendChild(deletePopupBtn);
     document.body.appendChild(overlay);
 
     // Add event listeners
@@ -210,12 +233,72 @@ h2 {
         $('#overlay').fadeOut();
     });
     $('#addBtn').on('click', function () {
-        $('#overlay').fadeIn();
+        themVatTu();
     });
     closeButton.addEventListener('click', function () {
         $('#overlay').fadeOut();
     });
 })
+
+function themVatTu() {
+    $("#tvt").val("");
+    $("#mvt").val("");
+    $("#dvt").val("");
+    $("#stk").val("");
+    $("#vt").val("");
+    $("#gc").val("");
+    imgDataUrl = "";
+
+    $('#overlay').fadeIn();
+    $('#popUpTitle').text("Thêm vật tư");
+    $("#addProductBtn").show();
+    $("#deleteProductBtn").hide();
+    $("#updateProductBtn").hide();
+}
+
+function suaVatTu(data, eventDispatcher) {
+    setProductInfo(data);
+    $('#overlay').fadeIn();
+    $('#popUpTitle').text("Thông tin vật tư");
+    $("#addProductBtn").hide();
+    $("#deleteProductBtn").show();
+    $("#updateProductBtn").show();
+
+    $("#deleteProductBtn").off("click");
+    $("#updateProductBtn").off("click");
+
+    $("#deleteProductBtn").on("click", function () {
+        $('#overlay').fadeOut();
+        eventDispatcher.dispatchEvent('deleteItem', data.idVatTu);
+    });
+
+    $("#updateProductBtn").on("click", function () {
+        $('#overlay').fadeOut();
+        var newData = {
+            "idVatTu": data.idVatTu,
+            "tenVatTu": $("#tvt").val(),
+            "maVatTu": $("#mvt").val(),
+            "donViTinh": $("#dvt").val(),
+            "soLuongTonKho": parseInt($("#stk").val()),
+            "idKho": null,
+            "viTri": $("#vt").val(),
+            "ghiChu": $("#gc").val(),
+            "hinhAnhVatTu": imgDataUrl,
+            "imger": null
+        }
+        eventDispatcher.dispatchEvent('updateItem', newData);
+    });
+}
+
+function setProductInfo(data) {
+    $("#tvt").val(data.tenVatTu);
+    $("#mvt").val(data.maVatTu);
+    $("#dvt").val(data.donViTinh);
+    $("#stk").val(data.soLuongTonKho);
+    $("#vt").val(data.viTri);
+    $("#gc").val(data.ghiChu);
+    imgDataUrl = data.hinhAnhVatTu;
+}
 
 function handleFileInputChange(event) {
     var fileInput = event.target;

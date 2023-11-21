@@ -1,0 +1,7 @@
+var vatus = [];
+
+setTimeout(() => {
+    vatus.forEach(element => {
+        console.log(element)
+    });
+}, 5000);
