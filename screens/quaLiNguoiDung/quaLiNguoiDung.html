@@ -52,13 +52,13 @@
                     <thead>
                         <tr>
                             <th> STT </th>
-                            <th> Tên vật tư </th>
-                            <th> Mã vật tư </th>
-                            <th> Số tồn kho </th>
-                            <th> Đơn vị tính </th>
-                            <th> Vị trí </th>
-                            <th> Ghi chú </th>
-                            <th> Hình ảnh </th>
+                            <th> Tên người dùng </th>
+                            <th> Chức vụ </th>
+                            <th> Phòng ban </th>
+                            <th> Điện thoại </th>
+                            <th> Email </th>
+                            <th> Địa chỉ </th>
+                            <th> Hình đại diện </th>
                             <th> Thao tác </th>
                         </tr>
                     </thead>
@@ -71,7 +71,7 @@
         </div>
         <button class="button add" id="addBtn">
             <span class="glyphicon glyphicon-plus"></span>
-            Thêm vật tư
+            Thêm người dùng
         </button>
     </div>
 
@@ -79,9 +79,12 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../../database/databaseManager"></script>
+<script src="../../database/databaseManager.js"></script>
 <script src="../../utilities/eventDispatcher.js"></script>
 <script src="../../api//apiController.js"></script>
 <script src="../../utilities/noticePopup.js"></script>
 <script src="./themNguoiDungPopup.js"></script>
+<script src="../../api/chucvu.js"></script>
+<script src="../../api//phongbans.js"></script>
+<script src="../../api/users.js"></script>
 </html>

@@ -26,6 +26,7 @@ async function deleteItemWithId(path, id) {
     return response;
   } catch (error) {
     console.error('Error:', error);
+
   }
 }
 
@@ -35,7 +36,7 @@ async function postData(path, data) {
       url: baseUrl + path,
       method: 'POST',
       dataType: 'json',
-      contentType: 'application/json', 
+      contentType: 'application/json',
       data: JSON.stringify(data)
     });
 
@@ -49,6 +50,22 @@ async function updateItemWithId(path, id, data) {
   try {
     const response = await $.ajax({
       url: baseUrl + path + "id?id=" + id,
+      method: 'PUT',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+async function updateItemWithIdNotInPath(path, id, data) {
+  try {
+    const response = await $.ajax({
+      url: baseUrl + path + id,
       method: 'PUT',
       dataType: 'json',
       contentType: 'application/json',

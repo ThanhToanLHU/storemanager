@@ -215,20 +215,20 @@ input[type=file]{
                 nextId = v.idVatTu;
             }
         })
-        console.log(imgDataUrl)
         var data = {
             "idVatTu": nextId + 1,
             "tenVatTu": $("#tvt").val(),
             "maVatTu": $("#mvt").val(),
             "donViTinh": $("#dvt").val(),
             "soLuongTonKho": parseInt($("#stk").val()),
-            "idKho": null,
+            "idKho": 1,
             "viTri": $("#vt").val(),
             "ghiChu": $("#gc").val(),
             "hinhAnhVatTu": imgDataUrl,
             "imger": null
         }
 
+        console.log(data)
         addProduct(data);
         $('#overlay').fadeOut();
     });

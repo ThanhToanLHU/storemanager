@@ -82,10 +82,13 @@ h2 {
 }
 
 input[type=file]{
-    margin-top: 1.6vh
+    margin-top: 2vh
 }
 
-.label-group {
+
+.label-text {
+    height: 18px;
+    margin-top: 0.5vh
 }
 
 .input-group {
@@ -101,13 +104,13 @@ input[type=file]{
     // Create button element
     var showPopupBtn = document.createElement('button');
     showPopupBtn.id = 'addProductBtn';
-    showPopupBtn.textContent = 'Thêm vật tư';
+    showPopupBtn.textContent = 'Thêm người dùng';
     var updatePopupBtn = document.createElement('button');
     updatePopupBtn.id = 'updateProductBtn';
-    updatePopupBtn.textContent = 'Sửa vật tư';
+    updatePopupBtn.textContent = 'Sửa người dùng';
     var deletePopupBtn = document.createElement('button');
     deletePopupBtn.id = 'deleteProductBtn';
-    deletePopupBtn.textContent = 'Xóa vật tư';
+    deletePopupBtn.textContent = 'Xóa người dùng';
 
     // Create overlay element
     var overlay = document.createElement('div');
@@ -129,36 +132,57 @@ input[type=file]{
     // Create label group div
     var labelGroupDiv = document.createElement('div');
     labelGroupDiv.classList.add('label-group');
-    var labels = ['Tên vật tư:', 'Mã vật tư:', 'Vị trí', 'Số tồn kho:', 'Đơn vị tính:', 'Hình ảnh', 'Ghi chú:'];
+    var labels = ['Tên người dùng:', 'Tên đăng nhập:', 'Mật khẩu:', 'Chức vụ:', 'Phòng ban:', 'Số điện thoại:', 'Email', 'Địa chỉ:', 'Ảnh đại diện'];
     labels.forEach(function (labelText) {
         var label = document.createElement('label');
+        label.classList.add('label-text');
         label.textContent = labelText;
         var p = document.createElement('p');
         labelGroupDiv.appendChild(label);
         labelGroupDiv.appendChild(p);
     });
 
-    // Create input group div
+    // Create close button
+    var closeButton = document.createElement('button');
+
+    chucVuPromise.then(data => {
+          // Create input group div
     var inputGroupDiv = document.createElement('div');
     inputGroupDiv.classList.add('input-group');
-    var inputIds = ['tvt', 'mvt', 'vt', 'stk', 'dvt', 'ha', 'gc'];
+    var inputIds = ['hvt', 'un', 'pw', 'cv', 'pb', 'sdt', 'em', 'dc', 'ha'];
     inputIds.forEach(function (inputId) {
-        if (inputId == 'dvt') {
+        if (inputId == 'cv') {
             var label = document.createElement('label');
             var select = document.createElement('select');
             select.id = inputId;
             select.classList.add('input-item');
 
-            // Add options to the select element (you can customize this part)
-            var option1 = document.createElement('option');
-            option1.value = 'cai';
-            option1.textContent = 'Cái';
-            select.appendChild(option1);
+            chucvus.forEach(chucVu => {
+                var option1 = document.createElement('option');
+                option1.value = chucVu.idChucVu;
+                option1.textContent = chucVu.tenChucVu;
+                select.appendChild(option1);
+            });
 
-            var option2 = document.createElement('option');
-            option2.value = 'thung';
-            option2.textContent = 'Thùng';
-            select.appendChild(option2);
+            // Create a paragraph for spacing
+            var p = document.createElement('p');
+
+            inputGroupDiv.appendChild(label);
+            inputGroupDiv.appendChild(select);
+            inputGroupDiv.appendChild(p);
+        }
+        else if (inputId == 'pb') {
+            var label = document.createElement('label');
+            var select = document.createElement('select');
+            select.id = inputId;
+            select.classList.add('input-item');
+
+            phongBan.forEach(phongBan => {
+                var option1 = document.createElement('option');
+                option1.value = phongBan.idPhongBan;
+                option1.textContent = phongBan.tenPhongBan;
+                select.appendChild(option1);
+            });
 
             // Create a paragraph for spacing
             var p = document.createElement('p');
@@ -187,10 +211,7 @@ input[type=file]{
 
     });
 
-
-
-    // Create close button
-    var closeButton = document.createElement('button');
+    
     closeButton.id = 'closeAddProductBtn';
     closeButton.textContent = 'Đóng';
 
@@ -206,28 +227,32 @@ input[type=file]{
     popup.appendChild(updatePopupBtn);
     popup.appendChild(deletePopupBtn);
     document.body.appendChild(overlay);
+    }); 
+  
 
     // Add event listeners
     showPopupBtn.addEventListener('click', function () {
         var nextId = 0;
-        vatus.forEach(v => {
-            if (v.idVatTu > nextId) {
-                nextId = v.idVatTu;
+        users.forEach(v => {
+            if (v.idUser > nextId) {
+                nextId = v.idUser;
             }
         })
-        console.log(imgDataUrl)
         var data = {
-            "idVatTu": nextId + 1,
-            "tenVatTu": $("#tvt").val(),
-            "maVatTu": $("#mvt").val(),
-            "donViTinh": $("#dvt").val(),
-            "soLuongTonKho": parseInt($("#stk").val()),
-            "idKho": null,
-            "viTri": $("#vt").val(),
-            "ghiChu": $("#gc").val(),
-            "hinhAnhVatTu": imgDataUrl,
-            "imger": null
+            "idUser": nextId + 1,
+            "hoTen": $("#hvt").val(),
+            "username": $("#un").val(),
+            "matKhau": $("#pw").val(),
+            "maBiMat": null,
+            "idChucVu": parseInt($("#cv").val()),
+            "idPhongBan": parseInt($("#pb").val()),
+            "diaChi": $("#dc").val(),
+            "email": $("#em").val(),
+            "dienThoai": $("#sdt").val(),
+            "hinhDaiDien": imgDataUrl,
+            "img": null
         }
+        console.log(data)
 
         addProduct(data);
         $('#overlay').fadeOut();
@@ -241,16 +266,18 @@ input[type=file]{
 })
 
 function themVatTu() {
-    $("#tvt").val("");
-    $("#mvt").val("");
-    $("#dvt").val("");
-    $("#stk").val("");
-    $("#vt").val("");
-    $("#gc").val("");
+    $("#hvt").val("");
+    $("#un").val("");
+    $("#pw").val("");
+    $("#cv").val("");
+    $("#pb").val("");
+    $("#dc").val("");
+    $("#em").val("");
+    $("#sdt").val("");
     imgDataUrl = "";
 
     $('#overlay').fadeIn();
-    $('#popUpTitle').text("Thêm vật tư");
+    $('#popUpTitle').text("Thêm người dùng");
     $("#addProductBtn").show();
     $("#deleteProductBtn").hide();
     $("#updateProductBtn").hide();
@@ -259,7 +286,7 @@ function themVatTu() {
 function suaVatTu(data, eventDispatcher) {
     setProductInfo(data);
     $('#overlay').fadeIn();
-    $('#popUpTitle').text("Thông tin vật tư");
+    $('#popUpTitle').text("Thông tin người dùng");
     $("#addProductBtn").hide();
     $("#deleteProductBtn").show();
     $("#updateProductBtn").show();
@@ -269,35 +296,41 @@ function suaVatTu(data, eventDispatcher) {
 
     $("#deleteProductBtn").on("click", function () {
         $('#overlay').fadeOut();
-        eventDispatcher.dispatchEvent('deleteItem', data.idVatTu);
+        eventDispatcher.dispatchEvent('deleteItem', data.idUser);
     });
 
     $("#updateProductBtn").on("click", function () {
         $('#overlay').fadeOut();
         var newData = {
-            "idVatTu": data.idVatTu,
-            "tenVatTu": $("#tvt").val(),
-            "maVatTu": $("#mvt").val(),
-            "donViTinh": $("#dvt").val(),
-            "soLuongTonKho": parseInt($("#stk").val()),
-            "idKho": null,
-            "viTri": $("#vt").val(),
-            "ghiChu": $("#gc").val(),
-            "hinhAnhVatTu": imgDataUrl,
-            "imger": null
+            "idUser": data.idUser,
+            "hoTen": $("#hvt").val(),
+            "username": $("#un").val(),
+            "matKhau": $("#pw").val(),
+            "maBiMat": null,
+            "idChucVu": parseInt($("#cv").val()),
+            "idPhongBan": parseInt($("#pb").val()),
+            "diaChi": $("#dc").val(),
+            "email": $("#em").val(),
+            "dienThoai": $("#sdt").val(),
+            "hinhDaiDien": imgDataUrl,
+            "img": null
         }
+        console.log(newData)
         eventDispatcher.dispatchEvent('updateItem', newData);
     });
 }
 
 function setProductInfo(data) {
-    $("#tvt").val(data.tenVatTu);
-    $("#mvt").val(data.maVatTu);
-    $("#dvt").val(data.donViTinh);
-    $("#stk").val(data.soLuongTonKho);
-    $("#vt").val(data.viTri);
-    $("#gc").val(data.ghiChu);
-    imgDataUrl = data.hinhAnhVatTu;
+    $("#hvt").val(data.hoTen);
+    $("#un").val(data.username);
+    $("#pw").val(data.matKhau);
+    $("#cv").val(parseInt(data.idChucVu));
+    $("#pb").val(parseInt(data.idPhongBan));
+    $("#dc").val(data.diaChi);
+    $("#em").val(data.email);
+    $("#sdt").val(data.dienThoai);
+
+    imgDataUrl = data.hinhDaiDien;
 }
 
 function handleFileInputChange(event) {

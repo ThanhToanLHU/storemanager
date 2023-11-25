@@ -6,7 +6,6 @@ $(document).ready(function () {
     eventDispatcher.addEventListener('deleteItem', onDeleteItem);
     eventDispatcher.addEventListener('updateItem', onUpdateItem);
     eventDispatcher.addEventListener('viewItem', onViewItem);
-
     if (vatus.length <= 0){
         getAllData(path).then((data) => {
             console.log(data);
@@ -105,7 +104,7 @@ function addProduct(productData) {
     postData(path, productData).then((data) => {
         vatus.push(data);
         showPopup("Added", "Item added")
-        addRowToTable(data, vatus.length);
+        addRowToTable(productData, vatus.length);
         resetIndexOnTable();
 
         // $('.delete-button').on('click', function () {
