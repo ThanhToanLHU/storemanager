@@ -1,20 +1,33 @@
-const ctpPath = 'api/ChiTietPhieu';
-let ctpPromise = getChiTietPhieu();
 
-function getChiTietPhieu() {
+function getChiTietPhieuById(id){
+    return pdnvtMapping[id];
+    console.log(id)
+
+    isHasData = false;
+    let that = this;
     return new Promise((resolve, reject) => {
-        try {
-            if (chiTietPhieus.length <= 0) {
-                getAllData(ctpPath).then((data) => {
-                    chiTietPhieus = data;
-                    
-                    console.log(chiTietPhieus)
-                    resolve(chiTietPhieus);
-                });
+        chiTietPhieus.forEach(phieu => {
+            if (phieu.idPhieuDeNghiMua == id && !that.isHasData){
+                that.isHasData = true;
+                resolve(phieu);
             }
+        });
+    
+        if (!isHasData){
+            reject();
         }
-        catch (e){
-            reject(null);
+    });
+}
+
+function updateCTP(data, callback) {
+    updateItemWithId(ctpPath, data.idChiTietPhieu, data).then((newData) => {
+        for (let index = 0; index < chiTietPhieus.length; index++) {
+            if (chiTietPhieus[index].idChiTietPhieu == data.idChiTietPhieu){
+                chiTietPhieus[index] = data;
+                console.log(data)
+            }
+            
         }
-    })
+        callback();
+    });
 }

@@ -146,89 +146,88 @@ input[type=file]{
     var closeButton = document.createElement('button');
 
     chucVuPromise.then(data => {
-          // Create input group div
-    var inputGroupDiv = document.createElement('div');
-    inputGroupDiv.classList.add('input-group');
-    var inputIds = ['hvt', 'un', 'pw', 'cv', 'pb', 'sdt', 'em', 'dc', 'ha'];
-    inputIds.forEach(function (inputId) {
-        if (inputId == 'cv') {
-            var label = document.createElement('label');
-            var select = document.createElement('select');
-            select.id = inputId;
-            select.classList.add('input-item');
+        // Create input group div
+        var inputGroupDiv = document.createElement('div');
+        inputGroupDiv.classList.add('input-group');
+        var inputIds = ['hvt', 'un', 'pw', 'cv', 'pb', 'sdt', 'em', 'dc', 'ha'];
+        inputIds.forEach(function (inputId) {
+            if (inputId == 'cv') {
+                var label = document.createElement('label');
+                var select = document.createElement('select');
+                select.id = inputId;
+                select.classList.add('input-item');
 
-            chucvus.forEach(chucVu => {
-                var option1 = document.createElement('option');
-                option1.value = chucVu.idChucVu;
-                option1.textContent = chucVu.tenChucVu;
-                select.appendChild(option1);
-            });
-
-            // Create a paragraph for spacing
-            var p = document.createElement('p');
-
-            inputGroupDiv.appendChild(label);
-            inputGroupDiv.appendChild(select);
-            inputGroupDiv.appendChild(p);
-        }
-        else if (inputId == 'pb') {
-            var label = document.createElement('label');
-            var select = document.createElement('select');
-            select.id = inputId;
-            select.classList.add('input-item');
-
-            phongBan.forEach(phongBan => {
-                var option1 = document.createElement('option');
-                option1.value = phongBan.idPhongBan;
-                option1.textContent = phongBan.tenPhongBan;
-                select.appendChild(option1);
-            });
-
-            // Create a paragraph for spacing
-            var p = document.createElement('p');
-
-            inputGroupDiv.appendChild(label);
-            inputGroupDiv.appendChild(select);
-            inputGroupDiv.appendChild(p);
-        }
-        else {
-            var input = document.createElement('input');
-            if (inputId == 'ha') {
-                input.type = 'file';
-                input.addEventListener('change', function (event) {
-                    handleFileInputChange(event);
+                chucvus.forEach(chucVu => {
+                    var option1 = document.createElement('option');
+                    option1.value = chucVu.idChucVu;
+                    option1.textContent = chucVu.tenChucVu;
+                    select.appendChild(option1);
                 });
+
+                // Create a paragraph for spacing
+                var p = document.createElement('p');
+
+                inputGroupDiv.appendChild(label);
+                inputGroupDiv.appendChild(select);
+                inputGroupDiv.appendChild(p);
+            }
+            else if (inputId == 'pb') {
+                var label = document.createElement('label');
+                var select = document.createElement('select');
+                select.id = inputId;
+                select.classList.add('input-item');
+
+                phongBan.forEach(phongBan => {
+                    var option1 = document.createElement('option');
+                    option1.value = phongBan.idPhongBan;
+                    option1.textContent = phongBan.tenPhongBan;
+                    select.appendChild(option1);
+                });
+
+                // Create a paragraph for spacing
+                var p = document.createElement('p');
+
+                inputGroupDiv.appendChild(label);
+                inputGroupDiv.appendChild(select);
+                inputGroupDiv.appendChild(p);
             }
             else {
-                input.type = 'text';
+                var input = document.createElement('input');
+                if (inputId == 'ha') {
+                    input.type = 'file';
+                    input.addEventListener('change', function (event) {
+                        handleFileInputChange(event);
+                    });
+                }
+                else {
+                    input.type = 'text';
+                }
+                input.id = inputId;
+                input.classList.add('input-item');
+                var p = document.createElement('p');
+                inputGroupDiv.appendChild(input);
+                inputGroupDiv.appendChild(p);
             }
-            input.id = inputId;
-            input.classList.add('input-item');
-            var p = document.createElement('p');
-            inputGroupDiv.appendChild(input);
-            inputGroupDiv.appendChild(p);
-        }
 
+        });
+
+        closeButton.id = 'closeAddProductBtn';
+        closeButton.textContent = 'Đóng';
+
+        // Append elements to the document
+        centerDiv.appendChild(labelGroupDiv);
+        centerDiv.appendChild(inputGroupDiv);
+        popup.appendChild(h2);
+        popup.appendChild(centerDiv);
+        popup.appendChild(document.createElement('p')); // Empty paragraph
+        popup.appendChild(closeButton);
+        overlay.appendChild(popup);
+        popup.appendChild(showPopupBtn);
+        popup.appendChild(updatePopupBtn);
+        popup.appendChild(deletePopupBtn);
+        document.body.appendChild(overlay);
     });
 
-    
-    closeButton.id = 'closeAddProductBtn';
-    closeButton.textContent = 'Đóng';
-
-    // Append elements to the document
-    centerDiv.appendChild(labelGroupDiv);
-    centerDiv.appendChild(inputGroupDiv);
-    popup.appendChild(h2);
-    popup.appendChild(centerDiv);
-    popup.appendChild(document.createElement('p')); // Empty paragraph
-    popup.appendChild(closeButton);
-    overlay.appendChild(popup);
-    popup.appendChild(showPopupBtn);
-    popup.appendChild(updatePopupBtn);
-    popup.appendChild(deletePopupBtn);
-    document.body.appendChild(overlay);
-    }); 
-  
 
     // Add event listeners
     showPopupBtn.addEventListener('click', function () {
@@ -257,6 +256,9 @@ input[type=file]{
         addProduct(data);
         $('#overlay').fadeOut();
     });
+    if (currentUser.idChucVu == 5) {
+        $('#addBtn').hide();
+    }
     $('#addBtn').on('click', function () {
         themVatTu();
     });
@@ -290,6 +292,10 @@ function suaVatTu(data, eventDispatcher) {
     $("#addProductBtn").hide();
     $("#deleteProductBtn").show();
     $("#updateProductBtn").show();
+
+    if (currentUser.idChucVu == 5) {
+        $("#deleteProductBtn").hide();
+    }
 
     $("#deleteProductBtn").off("click");
     $("#updateProductBtn").off("click");

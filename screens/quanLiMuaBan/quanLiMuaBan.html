@@ -15,7 +15,7 @@
         <div class="tabtc"> <button class="tabtcBtn"> <span class="glyphicon glyphicon-home"></span> Trang chủ </button>
         </div>
         <div class="btn-group">
-            <button class="tabBtn" onclick="swithTab('yeuCauVatTu/yeuCauVatTu.html')">
+            <button class="tabBtn " onclick="swithTab('yeuCauVatTu/yeuCauVatTu.html')">
                 <span class="glyphicon glyphicon-list-alt"></span>
                 Yêu cầu vật tư
             </button>
@@ -52,13 +52,11 @@
                     <thead>
                         <tr>
                             <th> STT </th>
-                            <th> Tên vật tư </th>
-                            <th> Mã vật tư </th>
-                            <th> Số tồn kho </th>
-                            <th> Đơn vị tính </th>
-                            <th> Vị trí </th>
-                            <th> Ghi chú </th>
-                            <th> Hình ảnh </th>
+                            <th> Người yêu cầu </th>
+                            <th> Vật tư yêu cầu </th>
+                            <th> Số lượng </th>
+                            <th> Lí do </th>
+                            <th> Tình trạng </th>
                             <th> Thao tác </th>
                         </tr>
                     </thead>
@@ -71,7 +69,7 @@
         </div>
         <button class="button add" id="addBtn">
             <span class="glyphicon glyphicon-plus"></span>
-            Thêm vật tư
+            Thêm yêu cầu
         </button>
     </div>
 
@@ -79,9 +77,13 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../../database/databaseManager"></script>
-<script src="../../utilities/eventDispatcher.js"></script>
 <script src="../../api//apiController.js"></script>
+<script src="../../database/databaseManager.js"></script>
+<script src="../../utilities/eventDispatcher.js"></script>
 <script src="../../utilities/noticePopup.js"></script>
+<script src="../../api/tinhTrangPhieu.js"></script>
+<script src="../../api/chucvu.js"></script>
+<script src="../../api/chiTietPhieus.js"></script>
+<script src="../../api/phieuTrinhMua.js"></script>
 <script src="./themHoaDonPopup.js"></script>
 </html>

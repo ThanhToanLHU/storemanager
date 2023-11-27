@@ -1,20 +1,35 @@
-const userPath = "api/Users/"
 var userTableBody;
 var userEventDispatcher = new EventDispatcher();
+
+function canDisplayUser(user){
+    if (currentUser.idChucVu == 5) {
+        if (user.idUser == currentUser.idUser){
+            return true;
+        }
+    }
+    else {
+        return true;
+    }
+
+    return false;
+}
+
 $(document).ready(function () {
-    chucVuPromise.then(chucvuData => {
+    initDone.then(() => {
         userTableBody = $("#data-table-body");
         userEventDispatcher.addEventListener('deleteItem', onDeleteItem);
         userEventDispatcher.addEventListener('updateItem', onUpdateItem);
         userEventDispatcher.addEventListener('viewItem', onViewItem);
+        var index = 1;
         if (users.length <= 0) {
             getAllData(userPath).then((data) => {
                 console.log(data);
                 users = data;
-                var index = 1;
                 users.forEach(user => {
-                    addRowToTable(user, index);
-                    index++;
+                    if (canDisplayUser(user)){
+                        addRowToTable(user, index);
+                        index++;
+                    }
                 });
     
                 resetIndexOnTable();
@@ -22,8 +37,10 @@ $(document).ready(function () {
         }
         else {
             users.forEach(user => {
-                addRowToTable(user, index);
-                index++;
+                if (canDisplayUser(user)){
+                    addRowToTable(user, index);
+                    index++;
+                }
             });
             resetIndexOnTable();
         }
@@ -54,10 +71,9 @@ function onUpdateItem(data) {
         row.find('td:eq(4)').text(data.dienThoai);
         row.find('td:eq(5)').text(data.email);
         row.find('td:eq(6)').text(data.diaChi);
-
         // Update the image source based on the condition you provided
-        const imagePath = (data.hinhDaiDien !== " " && data.hinhDaiDien !== "string" && data.hinhDaiDien !== "") ?
-            data.hinhDaiDien : '../resources/defaultAvatar.png';
+        const imagePath = (data.hinhDaiDien == "a" || data.hinhDaiDien == null || data.hinhDaiDien == "string" || data.hinhAnhVatTu == "") ?
+        '../../resources/defaultAvatarHuman.png' : data.hinhDaiDien;
         row.find('td:eq(7) img').attr('src', imagePath);
 
         for (let index = 0; index < users.length; index++) {
@@ -79,6 +95,8 @@ function onViewItem(id) {
 }
 
 function addRowToTable(data, index) {
+console.log(data.hinhDaiDien == "string")
+
     var row = `
         <tr class = 'vattudataid${data.idUser}'>
             <td>${index}</td>
@@ -88,7 +106,8 @@ function addRowToTable(data, index) {
             <td>${data.dienThoai}</td>
             <td>${data.email}</td>
             <td>${data.diaChi}</td>
-            <td><img src = ${(data.hinhDaiDien != " " && data.hinhDaiDien != null && data.hinhAnhVatTu != "") ? data.hinhDaiDien : '../resources/defaultAvatar.png'} class="avt"/></td>
+            
+            <td><img src = ${(data.hinhDaiDien == "a" || data.hinhDaiDien == null || data.hinhDaiDien == "string" || data.hinhAnhVatTu == "") ? '../../resources/defaultAvatarHuman.png': data.hinhDaiDien } class="avt"/></td>
             <td><button class="delete-button" data-id="${data.idUser}">Chi tiết</button></td>
         </tr>
     `;
